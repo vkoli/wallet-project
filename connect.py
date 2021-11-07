@@ -2,6 +2,7 @@
 import psycopg2
 from config import config
 
+
 def connect():
     """ Connect to the PostgreSQL database server """
     conn = None
@@ -16,6 +17,11 @@ def connect():
 
         db_version = cur.fetchone()
         print(db_version)
+
+        sql_file = open('wallet.sql', 'r')
+        cur.execute(sql_file.read())
+
+        conn.commit()
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
