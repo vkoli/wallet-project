@@ -18,8 +18,11 @@ def connect():
         db_version = cur.fetchone()
         print(db_version)
 
-        sql_file = open('wallet.sql', 'r')
-        cur.execute(sql_file.read())
+        # sql_file = open('wallet.sql', 'r')
+        # cur.execute(sql_file.read())
+
+        sql_file_data = open('wallet_data.sql', 'r')
+        cur.execute(sql_file_data.read())
 
         conn.commit()
         cur.close()
