@@ -18,8 +18,8 @@ def connect():
         db_version = cur.fetchone()
         print(db_version)
 
-        # sql_file = open('wallet.sql', 'r')
-        # cur.execute(sql_file.read())
+        sql_file = open('wallet.sql', 'r')
+        cur.execute(sql_file.read())
 
         sql_file_data = open('wallet_data.sql', 'r')
         cur.execute(sql_file_data.read())
@@ -32,7 +32,3 @@ def connect():
         if conn is not None:
             conn.close()
             print('Database connection closed.')
-
-
-if __name__ == '__main__':
-    connect()
