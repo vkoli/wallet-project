@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import sys
 import connect
+import queries
 
 MAIN_MENU = 'MAIN MENU\n[1] Account\n[2] Send Money\n[3] Request Money\n[4] Statements\n[5] Search Transactions\n[6] Sign out\n'
 ACCOUNT_MENU = 'ACCOUNT FUNCTIONS MENU\n[1] Account Info\n[2] Modify Name\n[3] Add Email Address\n[4] Remove Email Address\n[5] Add Phone Number\n[6] Remove Phone Number\n[7] Add Bank Account\n[8] Remove Bank Account\n[9] Go Back to Main Menu\n'
@@ -15,9 +16,7 @@ def main():
 		if cred_step == 1:
 			user_ssn = int(input("Enter your SSN: "))
 			user_phone = int(input("Enter your phone number: "))
-
-			#TODO replaced with sql query to check for user in db
-			print(f'\nUser {user_ssn} with phone {user_phone} has signed in\n')
+			queries.user_sign_in(user_ssn, user_phone)
 			
 			while(True):
 				print(MAIN_MENU)
@@ -143,9 +142,8 @@ def main():
 			user_ssn = int(input("Enter your SSN: "))
 			user_phone = int(input("Enter your phone number: "))
 			user_email = input("Enter your email address: ")
-
-			#TODO replaced with sql query to add user in db
-			print(f'\nUser {user_name} identified by {user_ssn} with phone {user_phone} and email {user_email} has signed up. Please sign in to access account.\n') 
+			queries.user_sign_up(user_name, user_ssn, user_phone, user_email)
+			 
 
 if __name__ == '__main__':
     main()
