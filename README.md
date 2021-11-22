@@ -4,8 +4,9 @@ CS631 Data Management System Design Project
 # Requirements (Install as Need be) 
 - Python 3.7 >= 
 - psycopy2 2.8.6
-- psql 10.18 >= 
-(homebrew: `brew install postgresql`)
+- psql 9.1 >=  
+(homebrew: `brew install postgresql`)  
+- faker 9.8.2
 
 # Set-Up  
 1. `git clone ssh://git@github.com:vkoli/wallet-project.git`
@@ -24,12 +25,11 @@ CS631 Data Management System Design Project
 5. Add the database.ini file to the main folder  
 
 # Run the Program
-1. Start psql in terminal `sudo service postgresql start`
-For homebrew: `brew services start postgresql`
+1. Start psql in terminal `sudo service postgresql start`  
+    - For homebrew: `brew services start postgresql`
 2. Run connect.py program `python connect.py`  
     - You should see the psql version being outputted
 3. Log in to psql and check whether wallet database has 8 new tables created 
 
-
-view db info:
-`psql -U $USER -d wallet`
+## Notes
+- view db info: `psql -U $USER -d wallet`
