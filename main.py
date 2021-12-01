@@ -142,7 +142,7 @@ def main():
 			user_ssn = int(input("Enter your SSN: "))
 			user_phone = int(input("Enter your phone number: "))
 			user_email = input("Enter your email address: ")
-			queries.user_sign_up(user_name, user_ssn, user_phone, user_email)
+			print(queries.user_sign_up(user_name, user_ssn, user_phone, user_email))
 			 
 
 if __name__ == '__main__':

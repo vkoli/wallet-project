@@ -13,7 +13,7 @@ CS631 Data Management System Design Project
 2. Create a new $USER, who also has superuser permissions, in psql and add a $PASSWORD to the $USER
   `psql createuser -P -s -e $USER`
 3. Create a database called *wallet*  
-  `psql creatdb wallet`
+  `psql createdb wallet`
 4. Create **database.ini** text file and copy paste the following text, substituting values as needed  
   ```  
   [postgresql]  
