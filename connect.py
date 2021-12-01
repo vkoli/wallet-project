@@ -32,3 +32,15 @@ def connect():
         if conn is not None:
             conn.close()
             print('Database connection closed.')
+
+def exec(command):
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute(command)
+        conn.commit()
+        cur.close()
+        return('Success')
+    except (Exception, psycopg2.DatabaseError) as error:
+        return error
