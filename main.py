@@ -114,7 +114,7 @@ def main():
 						print(STATEMENT_SEARCH_MENU)
 						statement_search_choice = int(input("Enter choice from account menu: "))
 						if statement_search_choice == 1:
-							user_ssn = input("Enter user's ssn: ")
+							user_ssn = int(input("Enter user's ssn: "))
 							#TODO replaced with sql query to get transactions by user ssn
 							print('1')
 
@@ -124,7 +124,7 @@ def main():
 							print('2')
 
 						elif statement_search_choice == 3:
-							user_phone = input("Enter user's email address: ")
+							user_phone = int(input("Enter user's email address: "))
 							#TODO replaced with sql query to get transactions by user phone
 							print('3')
 
