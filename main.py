@@ -6,7 +6,7 @@ import queries
 MAIN_MENU = 'MAIN MENU\n[1] Account\n[2] Send Money\n[3] Request Money\n[4] Statements\n[5] Search Transactions\n[6] Sign out\n'
 ACCOUNT_MENU = 'ACCOUNT FUNCTIONS MENU\n[1] Account Info\n[2] Modify Name\n[3] Add Email Address\n[4] Remove Email Address\n[5] Add Phone Number\n[6] Remove Phone Number\n[7] Add Bank Account\n[8] Remove Bank Account\n[9] Go Back to Main Menu\n'
 STATEMENT_MENU = 'STATEMENT FUNCTIONS MENU\n[1] Get statement by dates\n[2] Get statement by month\n[3] Get highest amount of transactions per month\n[4] Get best users\n[5] Go Back to Main Menu\n'
-STATEMENT_SEARCH_MENU = 'STATEMENT SEARCH MENU\n[1] User SSN\n[2] User Email\n[3] User Phone\n[4] Transaction Type\n[5] Go Back to Main Menu\n'
+STATEMENT_SEARCH_MENU = 'STATEMENT SEARCH MENU\n[1] User Email\n[2] User Phone\n[3] Transaction Type\n[4] Go Back to Main Menu\n'
 
 def main():
 	# connect.connect()
@@ -112,26 +112,21 @@ def main():
 				elif main_choice == 5:
 					while(True):
 						print(STATEMENT_SEARCH_MENU)
-						statement_search_choice = int(input("Enter choice from account menu: "))
+						statement_search_choice = int(input("Enter choice from statement search menu: "))
 						if statement_search_choice == 1:
-							user_ssn = int(input("Enter user's ssn: "))
-							#TODO replaced with sql query to get transactions by user ssn
+							user_email = input("Enter user's email address: ")
+							#TODO replaced with sql query to get transactions by user email
 							print('1')
 
 						elif statement_search_choice == 2:
-							user_email = input("Enter user's email address: ")
-							#TODO replaced with sql query to get transactions by user email
+							user_phone = int(input("Enter user's email address: "))
+							#TODO replaced with sql query to get transactions by user phone
 							print('2')
 
 						elif statement_search_choice == 3:
-							user_phone = int(input("Enter user's email address: "))
-							#TODO replaced with sql query to get transactions by user phone
-							print('3')
-
-						elif statement_search_choice == 4:
 							ttype = input("Enter r - recieved or s - sent transactions: ")
 							#TODO replaced with sql query to get users who have sent/recieved the maximum total amount of money
-							print('4')
+							print('3')
 						else:
 							break
 				else:

@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import sys
 import connect
+from prettytable import PrettyTable
 
 USER_PK = 0 #Used for table joins and transaction selection per user 
 
@@ -55,11 +56,10 @@ def best_users():
     pass
 
 def statement_search(input, choice, type='statement'):
-    if choice==2 or choice==3:
-        return connect.exec(f"""SELECT * FROM(SELECT * FROM send_transaction WHERE Identifier='{input}' AND SSN={USER_PK} UNION SELECT * FROM request_transactions, rt_from WHERE rt_from.RTid=request_transaction.RTid AND SSN={USER_PK} AND Identifier='{input}') Results ORDERBY Date_Time;\n""")
+    if choice==1 or choice==2:
+        return connect.exec(f"""SELECT * FROM (SELECT STid AS Id, Amount, Date_Time, Memo, Identifier FROM SEND_TRANSACTION WHERE Identifier='{input}' AND SSN='{USER_PK}' UNION SELECT REQUEST_TRANSACTION.RTid AS Id, Amount, Date_Time, Memo, Identifier FROM REQUEST_TRANSACTION, RT_FROM WHERE RT_FROM.RTid=REQUEST_TRANSACTION.RTid AND SSN='{USER_PK}' AND Identifier='{input}') Results ORDER BY Date_Time;\n""")
     if choice==4:
         if input=='r':
-            return connect.exec(f"""SELECT * FROM ORDERBY Date_Time;\n""")
+            print(connect.select_exec(f"""SELECT REQUEST_TRANSACTION.RTid, Amount, Date_Time, Memo, Identifier FROM REQUEST_TRANSACTION, RT_FROM WHERE REQUEST_TRANSACTION.SSN='{USER_PK}' AND RT_FROM.RTid=REQUEST_TRANSACTION.RTid ORDER BY Date_Time;\n"""))
         if input=='s':
-            return connect.exec(f"""SELECT * FROM ORDERBY Date_Time;\n""")
-
+            print(connect.exec(f"""SELECT STid, Amount, Date_Time, Memo, Identifier FROM SEND_TRANSACTION WHERE SSN='{USER_PK}' ORDER BY Date_Time;\n"""))

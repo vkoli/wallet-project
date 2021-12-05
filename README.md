@@ -7,6 +7,7 @@ CS631 Data Management System Design Project
 - psql 9.1 >=  
 (homebrew: `brew install postgresql`)  
 - faker 9.8.2
+- prettytable 2.4.0
 
 # Set-Up  
 1. `git clone ssh://git@github.com:vkoli/wallet-project.git`

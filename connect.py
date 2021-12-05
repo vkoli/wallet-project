@@ -1,6 +1,7 @@
 #!/usr/bin/python
 import psycopg2
 from config import config
+from prettytable import from_db_cursor
 
 
 def connect():
@@ -42,5 +43,18 @@ def exec(command):
         conn.commit()
         cur.close()
         return('Success')
+    except (Exception, psycopg2.DatabaseError) as error:
+        return error
+
+def select_exec(command):
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute(command)
+        mytable = from_db_cursor(cur)
+        cur.close()
+        return mytable
     except (Exception, psycopg2.DatabaseError) as error:
         return error
