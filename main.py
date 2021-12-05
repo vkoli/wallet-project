@@ -115,18 +115,13 @@ def main():
 						statement_search_choice = int(input("Enter choice from statement search menu: "))
 						if statement_search_choice == 1:
 							user_email = input("Enter user's email address: ")
-							#TODO replaced with sql query to get transactions by user email
-							print('1')
-
+							queries.statement_search(user_email, statement_search_choice)
 						elif statement_search_choice == 2:
 							user_phone = int(input("Enter user's email address: "))
-							#TODO replaced with sql query to get transactions by user phone
-							print('2')
-
+							queries.statement_search(user_phone, statement_search_choice)
 						elif statement_search_choice == 3:
 							ttype = input("Enter r - recieved or s - sent transactions: ")
-							#TODO replaced with sql query to get users who have sent/recieved the maximum total amount of money
-							print('3')
+							queries.statement_search(ttype, statement_search_choice)
 						else:
 							break
 				else:
