@@ -57,7 +57,7 @@ def best_users():
 
 def statement_search(input, choice, type='statement'):
     if choice==1 or choice==2:
-        print(connect.exec(f"""SELECT * FROM 
+        print(connect.select_exec(f"""SELECT * FROM 
                                 (SELECT STid AS Id, Amount, Date_Time, Memo, Identifier 
                                 FROM SEND_TRANSACTION 
                                 WHERE Identifier='{input}' AND SSN='{USER_PK}' 
@@ -73,7 +73,7 @@ def statement_search(input, choice, type='statement'):
                                         WHERE REQUEST_TRANSACTION.SSN='{USER_PK}' AND RT_FROM.RTid=REQUEST_TRANSACTION.RTid 
                                         ORDER BY Date_Time;\n"""))
         if input=='s':
-            print(connect.exec(f"""SELECT STid, Amount, Date_Time, Memo, Identifier 
+            print(connect.select_exec(f"""SELECT STid, Amount, Date_Time, Memo, Identifier 
                                 FROM SEND_TRANSACTION
                                 WHERE SSN='{USER_PK}'
                                 ORDER BY Date_Time;\n"""))

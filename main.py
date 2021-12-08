@@ -117,10 +117,10 @@ def main():
 							user_email = input("Enter user's email address: ")
 							queries.statement_search(user_email, statement_search_choice)
 						elif statement_search_choice == 2:
-							user_phone = int(input("Enter user's email address: "))
+							user_phone = int(input("Enter user's phone number: "))
 							queries.statement_search(user_phone, statement_search_choice)
 						elif statement_search_choice == 3:
-							ttype = input("Enter r - recieved or s - sent transactions: ")
+							ttype = input("Enter r - received or s - sent transactions: ")
 							queries.statement_search(ttype, statement_search_choice)
 						else:
 							break
