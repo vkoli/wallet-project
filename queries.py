@@ -16,8 +16,10 @@ def user_sign_up(name, ssn, phone, email,verified=1):
                             INSERT INTO ELEC_ADDRESS VALUES('{email}','{verified}', 'EMAIL');\n
                             INSERT INTO USER_ACCOUNT(SSN, Name, PhoneNo) VALUES('{ssn}', '{name}', '{phone}');""")
 
-def account_summary():
-    pass
+def account_summary(user_ssn):
+    print(connect.select_exec(f"""SELECT *
+                                FROM USER_ACCOUNT
+                                WHERE SSN='{user_ssn}';\n"""))
 
 def add_new_email():
     pass
