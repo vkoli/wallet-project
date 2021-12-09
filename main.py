@@ -28,6 +28,7 @@ def main():
 						account_choice = int(input("Enter choice from account menu: "))
 						if account_choice == 1:
 							#TODO replaced with sql query to give user account summary, list phone no & email
+							queries.account_summary(user_ssn)
 							print('Selected Account Info')
 						elif account_choice == 2:
 							name = input("Enter new name: ")
