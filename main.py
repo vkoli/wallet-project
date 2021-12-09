@@ -49,7 +49,8 @@ def main():
 							print('4')	
 						elif account_choice == 5:
 							phone = input("Enter new phone number to add: ")
-							
+							print(queries.update_phone(phone,user_ssn))
+
 							#TODO replaced with sql query to add phone number to user
 							print('5')
 						elif account_choice == 6:

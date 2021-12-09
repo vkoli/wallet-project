@@ -30,8 +30,15 @@ def remove_email(email):
     return connect.exec(f"""DELETE FROM ELEC_ADDRESS WHERE Identifier='{email}');\n
                             DELETE FROM EMAIL WHERE Identifier='{email}');\n""")
 
-def add_new_phone():
-    pass
+def update_phone(phone,user_ssn):
+    return connect.exec(f"""UPDATE ELEC_ADDRESS
+                            SET Identifier='{phone}'
+                            WHERE Identifier=   (SELECT PhoneNo
+                                                FROM USER_ACCOUNT
+                                                WHERE SSN='{user_ssn}');
+                            UPDATE USER_ACCOUNT
+                            SET PhoneNo='{phone}'
+                            WHERE SSN='{user_ssn}';""")
 
 def remove_phone():
     pass
