@@ -11,18 +11,20 @@ def user_sign_in(ssn, phone):
     #TODO replaced with sql query to check for user in db
     print(f'User {ssn} with {phone} has signed in')
 
-def user_sign_up(name, ssn, phone, email,verified=1):
+def user_sign_up(name, user_ssn, phone, email,verified=1):
     return connect.exec(f"""INSERT INTO ELEC_ADDRESS VALUES('{phone}','{verified}', 'PHONE');\n
+                            INSERT INTO EMAIL VALUES('{email}','{user_ssn}');\n
                             INSERT INTO ELEC_ADDRESS VALUES('{email}','{verified}', 'EMAIL');\n
-                            INSERT INTO USER_ACCOUNT(SSN, Name, PhoneNo) VALUES('{ssn}', '{name}', '{phone}');""")
+                            INSERT INTO USER_ACCOUNT(SSN, Name, PhoneNo) VALUES('{user_ssn}', '{name}', '{phone}');""")
 
 def account_summary(user_ssn):
     print(connect.select_exec(f"""SELECT *
                                 FROM USER_ACCOUNT
                                 WHERE SSN='{user_ssn}';\n"""))
 
-def add_new_email():
-    pass
+def add_new_email(email,user_ssn,verified=1):
+    return connect.exec(f"""INSERT INTO ELEC_ADDRESS VALUES('{email}','{verified}', 'EMAIL');\n
+                            INSERT INTO EMAIL VALUES('{email}','{user_ssn}');\n""")
 
 def remove_email():
     pass

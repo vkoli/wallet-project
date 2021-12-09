@@ -37,6 +37,7 @@ def main():
 							print('2')
 						elif account_choice == 3:
 							email = input("Enter new email to add: ")
+							print(queries.add_new_email(email,user_ssn))
 							
 							#TODO replaced with sql query to add email to user
 							print('3')
