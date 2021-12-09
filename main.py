@@ -92,9 +92,8 @@ def main():
 							user_name = input("Enter user's full name: ")
 							start = input("Enter start date in MM-DD-YYYY: ")
 							end = input("Enter end date in MM-DD-YYYY: ")
-
-							#TODO replaced with sql query to give total amount of money sent/recieved by a user in a range of dates
-							print('1')
+							ttype = input("Enter r - received or s - sent transactions: ")
+							queries.statement_users_by_date_range(user_name, start, end, ttype)
 
 						elif statement_choice == 2:
 							user_name = input("Enter user's full name: ")

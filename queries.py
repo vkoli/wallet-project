@@ -47,8 +47,18 @@ def send_transaction():
 def request_transaction():
     pass
 
-def statement_users_by_date_range():
-    pass
+def statement_users_by_date_range(user_name, start_date, end_date, ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT USER_ACCOUNT.Name, SUM(AMOUNT) AS Total 
+                                    FROM USER_ACCOUNT LEFT JOIN EMAIL ON USER_ACCOUNT.SSN=EMAIL.SSN, SEND_TRANSACTION 
+                                    WHERE USER_ACCOUNT.SSN=SEND_TRANSACTION.SSN 
+                                        AND USER_ACCOUNT.NAME='{user_name}' 
+                                        AND SEND_TRANSACTION.DATE_TIME BETWEEN '{start_date}' AND '{end_date}'\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT USER_ACCOUNT.NAME, SUM(Amount) AS Total
+                                    FROM USER_ACCOUNT LEFT JOIN EMAIL ON USER_ACCOUNT.SSN=EMAIL.SSN, REQUEST_TRANSACTION NATURAL JOIN RT_FROM
+                                    WHERE USER_ACCOUNT.NAME='{user_name}'
+                                    AND REQUEST_TRANSACTION.DATE_TIME BETWEEN '{start_date}' AND '{end_date}';\n"""))
 
 def statement_users_by_month():
     pass
