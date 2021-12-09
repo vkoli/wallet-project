@@ -43,7 +43,8 @@ def main():
 							print('3')
 						elif account_choice == 4:
 							email = input("Enter email to remove: ")
-							
+							print(queries.add_new_email(email))
+
 							#TODO replaced with sql query to remove email from user
 							print('4')	
 						elif account_choice == 5:

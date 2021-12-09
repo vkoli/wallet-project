@@ -26,8 +26,9 @@ def add_new_email(email,user_ssn,verified=1):
     return connect.exec(f"""INSERT INTO ELEC_ADDRESS VALUES('{email}','{verified}', 'EMAIL');\n
                             INSERT INTO EMAIL VALUES('{email}','{user_ssn}');\n""")
 
-def remove_email():
-    pass
+def remove_email(email):
+    return connect.exec(f"""DELETE FROM ELEC_ADDRESS WHERE Identifier='{email}');\n
+                            DELETE FROM EMAIL WHERE Identifier='{email}');\n""")
 
 def add_new_phone():
     pass
