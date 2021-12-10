@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS REQUEST_TRANSACTION(RTid CHAR(5) NOT NULL,
                                         CONSTRAINT RT_UA_FK FOREIGN KEY (SSN) REFERENCES USER_ACCOUNT(SSN) ON DELETE CASCADE ON UPDATE CASCADE );
 
 CREATE TABLE IF NOT EXISTS RT_FROM(RTid CHAR(5) NOT NULL, 
-                                        Identifier VARCHAR(30) NOT NULL, 
+                                        Identifier VARCHAR(30), 
                                         Percentage DECIMAL(10, 2), 
                                         CONSTRAINT FROM_PK PRIMARY KEY (RTid, Identifier), 
                                         CONSTRAINT FROM_RT_FK FOREIGN KEY (RTid) REFERENCES REQUEST_TRANSACTION(RTid) ON DELETE CASCADE ON UPDATE CASCADE, 

@@ -28,7 +28,16 @@ def add_new_email(email,user_ssn,verified=1):
 
 def remove_email(email):
     return connect.exec(f"""DELETE FROM ELEC_ADDRESS WHERE Identifier='{email}';\n
-                            DELETE FROM EMAIL WHERE Identifier='{email}';\n""")
+                            
+                            DELETE FROM EMAIL WHERE Identifier='{email}';\n
+                            
+                            UPDATE SEND_TRANSACTION
+                            SET Identifier=Null
+                            WHERE Identifier='{email}';\n
+                            
+                            UPDATE RT_FROM
+                            SET Identifier=Null
+                            WHERE Identifier='{email}';\n""")
 
 def update_phone(phone,user_ssn):
     return connect.exec(f"""UPDATE ELEC_ADDRESS
@@ -41,7 +50,7 @@ def update_phone(phone,user_ssn):
                             WHERE Identifier=   (SELECT PhoneNo
                                                 FROM USER_ACCOUNT
                                                 WHERE SSN='{user_ssn}');
-                            UPDATE FROM
+                            UPDATE RT_FROM
                             SET Identifier='{phone}'
                             WHERE Identifier=   (SELECT PhoneNo
                                                 FROM USER_ACCOUNT
@@ -49,9 +58,6 @@ def update_phone(phone,user_ssn):
                             UPDATE USER_ACCOUNT
                             SET PhoneNo='{phone}'
                             WHERE SSN='{user_ssn}';""")
-
-def remove_phone():
-    pass
 
 def add_new_bank_acc():
     pass
