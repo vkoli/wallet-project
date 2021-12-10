@@ -27,11 +27,21 @@ def add_new_email(email,user_ssn,verified=1):
                             INSERT INTO EMAIL VALUES('{email}','{user_ssn}');\n""")
 
 def remove_email(email):
-    return connect.exec(f"""DELETE FROM ELEC_ADDRESS WHERE Identifier='{email}');\n
-                            DELETE FROM EMAIL WHERE Identifier='{email}');\n""")
+    return connect.exec(f"""DELETE FROM ELEC_ADDRESS WHERE Identifier='{email}';\n
+                            DELETE FROM EMAIL WHERE Identifier='{email}';\n""")
 
 def update_phone(phone,user_ssn):
     return connect.exec(f"""UPDATE ELEC_ADDRESS
+                            SET Identifier='{phone}'
+                            WHERE Identifier=   (SELECT PhoneNo
+                                                FROM USER_ACCOUNT
+                                                WHERE SSN='{user_ssn}');
+                            UPDATE SEND_TRANSACTION
+                            SET Identifier='{phone}'
+                            WHERE Identifier=   (SELECT PhoneNo
+                                                FROM USER_ACCOUNT
+                                                WHERE SSN='{user_ssn}');
+                            UPDATE FROM
                             SET Identifier='{phone}'
                             WHERE Identifier=   (SELECT PhoneNo
                                                 FROM USER_ACCOUNT
