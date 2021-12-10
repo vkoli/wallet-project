@@ -73,8 +73,17 @@ def statement_users_by_month(user_name, month, ttype):
                                     WHERE USER_ACCOUNT.Name='{user_name}'
                                         AND EXTRACT(MONTH FROM REQUEST_TRANSACTION.Date_Time)={month};\n"""))
 
-def max_transactions():
-    pass
+def max_transactions(month, ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT STid, MONTH(Date_Time) AS Month, MAX(Amount) AS Amount
+                                    FROM SEND_TRANSACTION
+                                    WHERE SSN='{USER_PK}'
+                                    GROUP BY STid, MONTH(Date_Time);\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT RTid, MONTH(Date_Time) AS Month, MAX(Amount) AS Amount
+                                        FROM REQUEST_TRANSACTION
+                                        WHERE SSN='{USER_PK}'
+                                        GROUP BY RTid, MONTH(Date_Time);\n"""))
 
 def best_users():
     pass
