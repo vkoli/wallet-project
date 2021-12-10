@@ -85,8 +85,23 @@ def max_transactions(month, ttype):
                                         WHERE SSN='{USER_PK}'
                                         GROUP BY RTid, MONTH(Date_Time);\n"""))
 
-def best_users():
-    pass
+def best_users(ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT * FROM ( 
+                                            SELECT Identifier, SUM(AMOUNT) AS Amount
+                                            FROM SEND_TRANSACTION
+                                            WHERE SSN='{USER_PK}'
+                                            GROUP BY Identifier) Results
+                                    GROUP BY Results.Identifier
+                                    HAVING Amount >= MAX(Amount);\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT * FROM (
+                                            SELECT Identifier, SUM(AMOUNT) AS Amount
+                                            FROM REQUEST_TRANSACTION, RT_FROM
+                                            WHERE RT_FROM.RTid=REQUEST_TRANSACTION.RTid AND SSN='{USER_PK}'
+                                            GROUP BY Identifier) Results
+                                    GROUP BY Results.Identifier
+                                    HAVING Amount >= MAX(Amount);\n"""))
 
 def statement_search(input, choice, type='statement'):
     if choice==1 or choice==2:
