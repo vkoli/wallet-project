@@ -3,7 +3,7 @@ import sys
 import connect
 from prettytable import PrettyTable
 
-USER_PK = 0 #Used for table joins and transaction selection per user 
+USER_PK = 0
 
 def user_sign_in(ssn, phone):
     USER_PK = ssn
