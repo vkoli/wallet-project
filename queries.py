@@ -26,14 +26,38 @@ def add_new_email(email,user_ssn,verified=1):
     return connect.exec(f"""INSERT INTO ELEC_ADDRESS VALUES('{email}','{verified}', 'EMAIL');\n
                             INSERT INTO EMAIL VALUES('{email}','{user_ssn}');\n""")
 
-def remove_email():
-    pass
+def remove_email(email):
+    return connect.exec(f"""DELETE FROM ELEC_ADDRESS WHERE Identifier='{email}';\n
+                            
+                            DELETE FROM EMAIL WHERE Identifier='{email}';\n
+                            
+                            UPDATE SEND_TRANSACTION
+                            SET Identifier=Null
+                            WHERE Identifier='{email}';\n
+                            
+                            UPDATE RT_FROM
+                            SET Identifier=Null
+                            WHERE Identifier='{email}';\n""")
 
-def add_new_phone():
-    pass
-
-def remove_phone():
-    pass
+def update_phone(phone,user_ssn):
+    return connect.exec(f"""UPDATE ELEC_ADDRESS
+                            SET Identifier='{phone}'
+                            WHERE Identifier=   (SELECT PhoneNo
+                                                FROM USER_ACCOUNT
+                                                WHERE SSN='{user_ssn}');
+                            UPDATE SEND_TRANSACTION
+                            SET Identifier='{phone}'
+                            WHERE Identifier=   (SELECT PhoneNo
+                                                FROM USER_ACCOUNT
+                                                WHERE SSN='{user_ssn}');
+                            UPDATE RT_FROM
+                            SET Identifier='{phone}'
+                            WHERE Identifier=   (SELECT PhoneNo
+                                                FROM USER_ACCOUNT
+                                                WHERE SSN='{user_ssn}');
+                            UPDATE USER_ACCOUNT
+                            SET PhoneNo='{phone}'
+                            WHERE SSN='{user_ssn}';""")
 
 def add_new_bank_acc():
     pass
