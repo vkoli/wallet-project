@@ -58,3 +58,15 @@ def select_exec(command):
         return mytable
     except (Exception, psycopg2.DatabaseError) as error:
         return error
+
+def get_row_count(command):
+    conn = None
+    try:
+        params = config()
+        conn = psycopg2.connect(**params)
+        cur = conn.cursor()
+        cur.execute(command)
+        count = cur.rowcount
+        return count
+    except (Exception, psycopg2.DatabaseError) as error:
+        return error
