@@ -71,10 +71,11 @@ def main():
 						else:
 							break
 				elif main_choice == 2:
-					send_user_elec_id = input("Enter the sender's email address or phone number: ")
+					send_user_elec_id = input("Enter the phone number of the person you want to send money to: ")
 					send_amount = float(input("Enter a valid amount to send: "))
 					send_memo = input("Enter reason for sending money: ")
 					
+					print(queries.send_transaction(send_user_elec_id,send_amount,send_memo))
 					#TODO replaced with sql query to add send transaction in db
 					print(f'Sending ${send_amount} to {send_user_elec_id} for {send_memo}\n')
 
@@ -84,6 +85,7 @@ def main():
 					request_memo = input("Enter reason for requesting money: ")
 
 					#TODO replaced with sql query to add request transaction in db
+
 					print(f'Sending ${request_amount} to {request_user_elec_ids} for {request_memo}\n')
 
 				elif main_choice == 4:

@@ -15,7 +15,7 @@ def user_sign_up(name, user_ssn, phone, email,verified=1):
     return connect.exec(f"""INSERT INTO ELEC_ADDRESS VALUES('{phone}','{verified}', 'PHONE');\n
                             INSERT INTO EMAIL VALUES('{email}','{user_ssn}');\n
                             INSERT INTO ELEC_ADDRESS VALUES('{email}','{verified}', 'EMAIL');\n
-                            INSERT INTO USER_ACCOUNT(SSN, Name, PhoneNo) VALUES('{user_ssn}', '{name}', '{phone}');""")
+                            INSERT INTO USER_ACCOUNT(SSN, Name, PhoneNo,Balance) VALUES('{user_ssn}', '{name}', '{phone}',0);""")
 
 def account_summary(user_ssn):
     print(connect.select_exec(f"""SELECT *
@@ -65,11 +65,29 @@ def add_new_bank_acc():
 def remove_bank_acc():
     pass
 
-def send_transaction():
-    pass
+def send_transaction(Identifier, Amount, Memo,STID,Date,Cancel_Reason='None'):
+    return connect.exec(f"""
+        INSERT INTO SEND_TRANSACTION 
+            '{STID}', {Amount}, {Date}, '{Memo}',
+            '{Cancel_Reason}','{Identifier}','{USER_PK}';
+        
+        UPDATE USER_ACCOUNT
+        SET BALANCE = BALANCE+{Amount}
+        WHERE PhoneNo = '{Identifier}';
 
-def request_transaction():
-    pass
+        UPDATE USER_ACCOUNT
+        SET BALANCE = BALANCE-{Amount}
+        WHERE SSN = '{USER_PK}';
+    """)
+
+def request_transaction(RTid,Amount,Date,Memo,Identifier,Percentage=1):
+    return connect.exec(f"""
+        INSERT INTO REQUEST_TRANSACTION 
+            '{RTid}', {Amount}, {Date}, '{Memo}',
+            '{USER_PK}';
+        INSERT INTO FROM 
+            '{RTid}','{Identifier}',{Percentage};
+    """)
 
 def statement_users_by_date_range():
     pass
