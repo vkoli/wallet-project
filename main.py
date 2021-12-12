@@ -96,7 +96,7 @@ def main():
 									date.today(),
 									request_memo,
 									request_user_elec_ids))
-
+            
 					elif main_choice == 4:
 						while(True):
 							print(STATEMENT_MENU)
