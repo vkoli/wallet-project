@@ -6,10 +6,16 @@ from prettytable import PrettyTable
 USER_PK = 0
 
 def user_sign_in(ssn, phone):
-    USER_PK = ssn
-
-    #TODO replaced with sql query to check for user in db
-    print(f'User {ssn} with {phone} has signed in')
+    check = connect.get_row_count(f"""SELECT * 
+                                    FROM USER_ACCOUNT
+                                    WHERE SSN='{ssn}' AND PhoneNo='{phone}';\n""")
+    if check == 1: 
+        USER_PK = ssn
+        print(f'User {ssn} with {phone} has signed in\n')
+        return True
+    else:
+        print(f'User {ssn} with {phone} is incorrect. Please try again.\n')
+        return False
 
 def user_sign_up(name, user_ssn, phone, email,verified=1):
     return connect.exec(f"""INSERT INTO ELEC_ADDRESS VALUES('{phone}','{verified}', 'PHONE');\n
