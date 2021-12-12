@@ -36,7 +36,6 @@ def main():
 							print(ACCOUNT_MENU)
 							account_choice = int(input("Enter choice from account menu: "))
 							if account_choice == 1:
-								#TODO replaced with sql query to give user account summary, list phone no & email
 								queries.account_summary(user_ssn)
 								print('Selected Account Info')
 							elif account_choice == 2:
@@ -47,21 +46,12 @@ def main():
 							elif account_choice == 3:
 								email = input("Enter new email to add: ")
 								print(queries.add_new_email(email,user_ssn))
-								
-								#TODO replaced with sql query to add email to user
-								print('3')
 							elif account_choice == 4:
 								email = input("Enter email to remove: ")
 								print(queries.add_new_email(email))
-
-								#TODO replaced with sql query to remove email from user
-								print('4')	
 							elif account_choice == 5:
 								phone = input("Enter new phone number to add: ")
 								print(queries.update_phone(phone,user_ssn))
-
-								#TODO replaced with sql query to add phone number to user
-								print('5')
 							elif account_choice == 6:
 								phone = input("Enter phone number to remove: ")
 								
@@ -79,6 +69,7 @@ def main():
 								print('8')
 							else:
 								break
+                
 					elif main_choice == 2:
 						send_user_elec_id = input("Enter the phone number of the person you want to send money to: ")
 						send_amount = float(input("Enter a valid amount to send: "))
@@ -87,10 +78,11 @@ def main():
 						count += 1
 						print(f'Sending ${send_amount} to {send_user_elec_id} for {send_memo}\n')
 						print(queries.send_transaction(send_user_elec_id,
-														send_amount,
-														send_memo,
-														STids[count],
-														date.today()))
+										send_amount,
+										send_memo,
+										STids[count],
+										date.today()))
+
 					elif main_choice == 3:
 						request_user_elec_ids = input("Enter the user's phone number: ")
 						request_amount = float(input("Enter a valid amount to send: "))
@@ -100,10 +92,11 @@ def main():
 
 						print(f'Requesting ${request_amount} from {request_user_elec_ids} for {request_memo}\n')
 						print(queries.request_transaction(RTids[count],
-												request_amount,
-												date.today(),
-												request_memo,
-												request_user_elec_ids))
+									request_amount,
+									date.today(),
+									request_memo,
+									request_user_elec_ids))
+            
 					elif main_choice == 4:
 						while(True):
 							print(STATEMENT_MENU)
@@ -127,7 +120,7 @@ def main():
 								ttype = input("Enter r - received or s - sent transactions: ")
 								queries.best_users(ttype)
 							else:
-								break	
+								break							
 					elif main_choice == 5:
 						while(True):
 							print(STATEMENT_SEARCH_MENU)
@@ -144,7 +137,7 @@ def main():
 							else:
 								break
 					else:
-						break
+						break							
 			else:
 				continue
 		elif cred_step == 2:

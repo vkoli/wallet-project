@@ -69,4 +69,4 @@ def get_row_count(command):
         count = cur.rowcount
         return count
     except (Exception, psycopg2.DatabaseError) as error:
-        return error 
+        return error
