@@ -28,7 +28,6 @@ def main():
 							print(ACCOUNT_MENU)
 							account_choice = int(input("Enter choice from account menu: "))
 							if account_choice == 1:
-								#TODO replaced with sql query to give user account summary, list phone no & email
 								queries.account_summary(user_ssn)
 								print('Selected Account Info')
 							elif account_choice == 2:
@@ -39,21 +38,12 @@ def main():
 							elif account_choice == 3:
 								email = input("Enter new email to add: ")
 								print(queries.add_new_email(email,user_ssn))
-								
-								#TODO replaced with sql query to add email to user
-								print('3')
 							elif account_choice == 4:
 								email = input("Enter email to remove: ")
 								print(queries.add_new_email(email))
-
-								#TODO replaced with sql query to remove email from user
-								print('4')	
 							elif account_choice == 5:
 								phone = input("Enter new phone number to add: ")
 								print(queries.update_phone(phone,user_ssn))
-
-								#TODO replaced with sql query to add phone number to user
-								print('5')
 							elif account_choice == 6:
 								phone = input("Enter phone number to remove: ")
 								
@@ -87,47 +77,47 @@ def main():
 						#TODO replaced with sql query to add request transaction in db
 						print(f'Sending ${request_amount} to {request_user_elec_ids} for {request_memo}\n')
 
-          elif main_choice == 4:
-            while(True):
-              print(STATEMENT_MENU)
-              statement_choice = int(input("Enter choice from account menu: "))
-              if statement_choice == 1:
-                user_name = input("Enter user's full name: ")
-                start = input("Enter start date in MM-DD-YYYY: ")
-                end = input("Enter end date in MM-DD-YYYY: ")
-                ttype = input("Enter r - received or s - sent transactions: ")
-                queries.statement_users_by_date_range(user_name, start, end, ttype)
-              elif statement_choice == 2:
-                user_name = input("Enter user's full name: ")
-                month = input("Enter the month as a two-digit number (e.g. January = 01): ")
-                ttype = input("Enter r - received or s - sent transactions: ")
-                queries.statement_users_by_month(user_name, month, ttype)
-              elif statement_choice == 3:
-                month = input("Enter the month as a two-digit number (e.g. January = 01): ")
-                ttype = input("Enter r - received or s - sent transactions: ")
-                queries.max_transactions(month, ttype)
-              elif statement_choice == 4:
-                ttype = input("Enter r - received or s - sent transactions: ")
-                queries.best_users(ttype)
-              else:
-							  break							
-          elif main_choice == 5:
-            while(True):
-              print(STATEMENT_SEARCH_MENU)
-              statement_search_choice = int(input("Enter choice from statement search menu: "))
-              if statement_search_choice == 1:
-                user_email = input("Enter user's email address: ")
-                queries.statement_search(user_email, statement_search_choice)
-              elif statement_search_choice == 2:
-                user_phone = int(input("Enter user's phone number: "))
-                queries.statement_search(user_phone, statement_search_choice)
-              elif statement_search_choice == 3:
-                ttype = input("Enter r - received or s - sent transactions: ")
-                queries.statement_search(ttype, statement_search_choice)
-              else:
-                break
-				  else:
-					  break							
+					elif main_choice == 4:
+						while(True):
+							print(STATEMENT_MENU)
+							statement_choice = int(input("Enter choice from account menu: "))
+							if statement_choice == 1:
+								user_name = input("Enter user's full name: ")
+								start = input("Enter start date in MM-DD-YYYY: ")
+								end = input("Enter end date in MM-DD-YYYY: ")
+								ttype = input("Enter r - received or s - sent transactions: ")
+								queries.statement_users_by_date_range(user_name, start, end, ttype)
+							elif statement_choice == 2:
+								user_name = input("Enter user's full name: ")
+								month = input("Enter the month as a two-digit number (e.g. January = 01): ")
+								ttype = input("Enter r - received or s - sent transactions: ")
+								queries.statement_users_by_month(user_name, month, ttype)
+							elif statement_choice == 3:
+								month = input("Enter the month as a two-digit number (e.g. January = 01): ")
+								ttype = input("Enter r - received or s - sent transactions: ")
+								queries.max_transactions(month, ttype)
+							elif statement_choice == 4:
+								ttype = input("Enter r - received or s - sent transactions: ")
+								queries.best_users(ttype)
+							else:
+								break							
+					elif main_choice == 5:
+						while(True):
+							print(STATEMENT_SEARCH_MENU)
+							statement_search_choice = int(input("Enter choice from statement search menu: "))
+							if statement_search_choice == 1:
+								user_email = input("Enter user's email address: ")
+								queries.statement_search(user_email, statement_search_choice)
+							elif statement_search_choice == 2:
+								user_phone = int(input("Enter user's phone number: "))
+								queries.statement_search(user_phone, statement_search_choice)
+							elif statement_search_choice == 3:
+								ttype = input("Enter r - received or s - sent transactions: ")
+								queries.statement_search(ttype, statement_search_choice)
+							else:
+								break
+					else:
+						break							
 			else:
 				continue
 		elif cred_step == 2:
