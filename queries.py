@@ -3,7 +3,7 @@ import sys
 import connect
 from prettytable import PrettyTable
 
-USER_PK = 0 
+USER_PK = 0
 
 def user_sign_in(ssn, phone):
     check = connect.get_row_count(f"""SELECT * 
@@ -77,17 +77,61 @@ def send_transaction():
 def request_transaction():
     pass
 
-def statement_users_by_date_range():
-    pass
+def statement_users_by_date_range(user_name, start_date, end_date, ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT USER_ACCOUNT.Name, SUM(AMOUNT) AS Total 
+                                    FROM USER_ACCOUNT LEFT JOIN EMAIL ON USER_ACCOUNT.SSN=EMAIL.SSN, SEND_TRANSACTION 
+                                    WHERE USER_ACCOUNT.SSN=SEND_TRANSACTION.SSN 
+                                        AND USER_ACCOUNT.Name='{user_name}' 
+                                        AND SEND_TRANSACTION.Date_Time BETWEEN '{start_date}' AND '{end_date}'\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT USER_ACCOUNT.NAME, SUM(Amount) AS Total
+                                    FROM USER_ACCOUNT LEFT JOIN EMAIL ON USER_ACCOUNT.SSN=EMAIL.SSN, REQUEST_TRANSACTION NATURAL JOIN RT_FROM
+                                    WHERE USER_ACCOUNT.Name='{user_name}'
+                                    AND REQUEST_TRANSACTION.Date_Time BETWEEN '{start_date}' AND '{end_date}';\n"""))
 
-def statement_users_by_month():
-    pass
+def statement_users_by_month(user_name, month, ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT USER_ACCOUNT.Name, SUM(AMOUNT) AS Total 
+                                    FROM USER_ACCOUNT LEFT JOIN EMAIL ON USER_ACCOUNT.SSN=EMAIL.SSN, SEND_TRANSACTION 
+                                    WHERE USER_ACCOUNT.SSN=SEND_TRANSACTION.SSN 
+                                        AND USER_ACCOUNT.Name='{user_name}' 
+                                        AND EXTRACT(MONTH FROM SEND_TRANSACTION.Date_Time)={month};\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT USER_ACCOUNT.NAME, SUM(Amount) AS Total
+                                    FROM USER_ACCOUNT LEFT JOIN EMAIL ON USER_ACCOUNT.SSN=EMAIL.SSN, REQUEST_TRANSACTION NATURAL JOIN RT_FROM
+                                    WHERE USER_ACCOUNT.Name='{user_name}'
+                                        AND EXTRACT(MONTH FROM REQUEST_TRANSACTION.Date_Time)={month};\n"""))
 
-def max_transactions():
-    pass
+def max_transactions(month, ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT STid, MONTH(Date_Time) AS Month, MAX(Amount) AS Amount
+                                    FROM SEND_TRANSACTION
+                                    WHERE SSN='{USER_PK}'
+                                    GROUP BY STid, MONTH(Date_Time);\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT RTid, MONTH(Date_Time) AS Month, MAX(Amount) AS Amount
+                                        FROM REQUEST_TRANSACTION
+                                        WHERE SSN='{USER_PK}'
+                                        GROUP BY RTid, MONTH(Date_Time);\n"""))
 
-def best_users():
-    pass
+def best_users(ttype):
+    if ttype == 's':
+        print(connect.select_exec(f"""SELECT * FROM ( 
+                                            SELECT Identifier, SUM(AMOUNT) AS Amount
+                                            FROM SEND_TRANSACTION
+                                            WHERE SSN='{USER_PK}'
+                                            GROUP BY Identifier) Results
+                                    GROUP BY Results.Identifier
+                                    HAVING Amount >= MAX(Amount);\n"""))
+    if ttype=='r':
+        print(connect.select_exec(f"""SELECT * FROM (
+                                            SELECT Identifier, SUM(AMOUNT) AS Amount
+                                            FROM REQUEST_TRANSACTION, RT_FROM
+                                            WHERE RT_FROM.RTid=REQUEST_TRANSACTION.RTid AND SSN='{USER_PK}'
+                                            GROUP BY Identifier) Results
+                                    GROUP BY Results.Identifier
+                                    HAVING Amount >= MAX(Amount);\n"""))
 
 def statement_search(input, choice, type='statement'):
     if choice==1 or choice==2:
