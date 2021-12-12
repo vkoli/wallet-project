@@ -94,23 +94,20 @@ def main():
 							user_name = input("Enter user's full name: ")
 							start = input("Enter start date in MM-DD-YYYY: ")
 							end = input("Enter end date in MM-DD-YYYY: ")
-
-							#TODO replaced with sql query to give total amount of money sent/recieved by a user in a range of dates
-							print('1')
-
+							ttype = input("Enter r - received or s - sent transactions: ")
+							queries.statement_users_by_date_range(user_name, start, end, ttype)
 						elif statement_choice == 2:
 							user_name = input("Enter user's full name: ")
 							month = input("Enter the month as a two-digit number (e.g. January = 01): ")
-							
-							#TODO replaced with sql query to give total/average amount og money sent/recived by a user in a month
-							print('2')
-
+							ttype = input("Enter r - received or s - sent transactions: ")
+							queries.statement_users_by_month(user_name, month, ttype)
 						elif statement_choice == 3:
-							#TODO replaced with sql query to get the maximum amount of transactions per month
-							print('3')
+							month = input("Enter the month as a two-digit number (e.g. January = 01): ")
+							ttype = input("Enter r - received or s - sent transactions: ")
+							queries.max_transactions(month, ttype)
 						elif statement_choice == 4:
-							#TODO replaced with sql query to get users who have sent/recieved the maximum total amount of money
-							print('4')
+							ttype = input("Enter r - received or s - sent transactions: ")
+							queries.best_users(ttype)
 						else:
 							break							
 				elif main_choice == 5:
