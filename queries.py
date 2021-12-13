@@ -73,9 +73,8 @@ def remove_bank_acc():
 
 def send_transaction(Identifier, Amount, Memo,STID,Date,Cancel_Reason='None'):
     return connect.exec(f"""
-        INSERT INTO SEND_TRANSACTION 
-            '{STID}', {Amount}, {Date}, '{Memo}',
-            '{Cancel_Reason}','{Identifier}','{USER_PK}';
+        INSERT INTO SEND_TRANSACTION VALUES('{STID}', {Amount}, '{Date}', '{Memo}',
+            '{Cancel_Reason}','{Identifier}','{USER_PK}');
         
         UPDATE USER_ACCOUNT
         SET BALANCE = BALANCE+{Amount}
@@ -88,11 +87,8 @@ def send_transaction(Identifier, Amount, Memo,STID,Date,Cancel_Reason='None'):
 
 def request_transaction(RTid,Amount,Date,Memo,Identifier,Percentage=1):
     return connect.exec(f"""
-        INSERT INTO REQUEST_TRANSACTION 
-            '{RTid}', {Amount}, {Date}, '{Memo}',
-            '{USER_PK}';
-        INSERT INTO FROM 
-            '{RTid}','{Identifier}',{Percentage};
+        INSERT INTO REQUEST_TRANSACTION VALUES('{RTid}', {Amount}, '{Date}', '{Memo}','{USER_PK}');
+        INSERT INTO RT_FROM VALUES('{RTid}','{Identifier}',{Percentage});
     """)
 
 def statement_users_by_date_range(user_name, start_date, end_date, ttype):

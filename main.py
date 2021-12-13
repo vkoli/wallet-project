@@ -3,14 +3,14 @@ import sys
 import connect
 import queries
 import random
-from datetime import date
+from datetime import datetime
 
 MAIN_MENU = 'MAIN MENU\n[1] Account\n[2] Send Money\n[3] Request Money\n[4] Statements\n[5] Search Transactions\n[6] Sign out\n'
 ACCOUNT_MENU = 'ACCOUNT FUNCTIONS MENU\n[1] Account Info\n[2] Modify Name\n[3] Add Email Address\n[4] Remove Email Address\n[5] Add Phone Number\n[6] Remove Phone Number\n[7] Add Bank Account\n[8] Remove Bank Account\n[9] Go Back to Main Menu\n'
 STATEMENT_MENU = 'STATEMENT FUNCTIONS MENU\n[1] Get statement by dates\n[2] Get statement by month\n[3] Get highest amount of transactions per month\n[4] Get best users\n[5] Go Back to Main Menu\n'
 STATEMENT_SEARCH_MENU = 'STATEMENT SEARCH MENU\n[1] User Email\n[2] User Phone\n[3] Transaction Type\n[4] Go Back to Main Menu\n'
 
-TOTAL_USERS = 10000000
+TOTAL_USERS = 1000
 RTids = random.sample(range(10000, 99999), TOTAL_USERS)
 STids = random.sample(range(10000, 99999), TOTAL_USERS)
 count = 0
@@ -48,15 +48,13 @@ def main():
 								print(queries.add_new_email(email,user_ssn))
 							elif account_choice == 4:
 								email = input("Enter email to remove: ")
-								print(queries.add_new_email(email))
+								print(queries.remove_email(email))
 							elif account_choice == 5:
 								phone = input("Enter new phone number to add: ")
 								print(queries.update_phone(phone,user_ssn))
 							elif account_choice == 6:
 								phone = input("Enter phone number to remove: ")
-								
-								#TODO replaced with sql query to remove phone number from user
-								print('6')							
+								print("You can't remove phone number, try updating your phone number instead :)")						
 							elif account_choice == 7:
 								ba = input("Enter new bank account to link: ")
 								
@@ -81,7 +79,7 @@ def main():
 										send_amount,
 										send_memo,
 										STids[count],
-										date.today()))
+										datetime.now()))
 
 					elif main_choice == 3:
 						request_user_elec_ids = input("Enter the user's phone number: ")
@@ -93,7 +91,7 @@ def main():
 						print(f'Requesting ${request_amount} from {request_user_elec_ids} for {request_memo}\n')
 						print(queries.request_transaction(RTids[count],
 									request_amount,
-									date.today(),
+									datetime.now(),
 									request_memo,
 									request_user_elec_ids))
             
