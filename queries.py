@@ -6,6 +6,7 @@ from prettytable import PrettyTable
 USER_PK = 0
 
 def user_sign_in(ssn, phone):
+    global USER_PK
     check = connect.get_row_count(f"""SELECT * 
                                     FROM USER_ACCOUNT
                                     WHERE SSN='{ssn}' AND PhoneNo='{phone}';\n""")
